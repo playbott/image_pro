@@ -1,0 +1,21 @@
+# Run with `flutter pub run ffigen --config ffigen.yaml`.
+name: ImageProBindings
+description: |
+  Bindings for `src/image_pro.h`.
+
+  Regenerate bindings with `flutter pub run ffigen --config ffigen.yaml`.
+output: 'lib/src/generated/image_pro_bindings.dart'
+headers:
+  entry-points:
+    - 'android/src/main/jniLibs/arm64-v8a/libbild.h'
+    - 'android/src/main/jniLibs/armeabi-v7a/libbild.h'
+  include-directives:
+    - 'android/src/main/jniLibs/arm64-v8a/libbild.h'
+    - 'android/src/main/jniLibs/armeabi-v7a/libbild.h'
+preamble: |
+  // ignore_for_file: always_specify_types
+  // ignore_for_file: camel_case_types
+  // ignore_for_file: non_constant_identifier_names
+comments:
+  style: any
+  length: full

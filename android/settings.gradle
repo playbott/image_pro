@@ -1,0 +1,18 @@
+rootProject.name = 'image_pro'
+
+include ':app'
+
+gradle.beforeProject({ project->  // flutter的bug,如果指定armv7和arm64,armv7不会打包libflutter.so 的动态库,导致在32位手机上会崩溃
+    //if(project.status == "debug"){}
+    project.setProperty("target-platform", "android-arm,android-arm64")
+})
+
+def localPropertiesFile = new File(rootProject.projectDir, "local.properties")
+def properties = new Properties()
+
+assert localPropertiesFile.exists()
+localPropertiesFile.withReader("UTF-8") { reader -> properties.load(reader) }
+
+def flutterSdkPath = properties.getProperty("flutter.sdk")
+assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+apply from: "$flutterSdkPath/packages/flutter_tools/gradle/app_plugin_loader.gradle"
